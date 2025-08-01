@@ -96,7 +96,7 @@ const imageContainer = document.getElementById("imageContainer");
 
 // Simula carga dinámica (GitHub Pages no permite leer archivos locales,
 // así que las imagenes deben estar listadas manualmente en un array).
-const totalImages = 6; // cambia este número si agregas más imágenes
+const totalImages = 4; // cambia este número si agregas más imágenes
 for (let i = 1; i <= totalImages; i++) {
   const img = document.createElement("img");
   img.src = `images/foto${i}.jpg`; // asegúrate de seguir ese patrón
