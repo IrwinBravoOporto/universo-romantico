@@ -1,156 +1,28 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Mensaje de Amor en el Universo</title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      background: black;
-      color: white;
-      font-family: 'Courier New', Courier, monospace;
-      height: 100vh;
-    }
-
-    canvas {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 1;
-    }
-
-    #loveText {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(1);
-      font-size: 2.5em;
-      text-align: center;
-      opacity: 0;
-      transition: opacity 2s, transform 2s;
-      z-index: 2;
-      white-space: nowrap;
-    }
-
-    #loveText.show {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1.2);
-    }
-
-    audio {
-      display: none;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <canvas id="universe"></canvas>
 <div id="loveText"></div>
+
+<!-- Imagenes flotantes -->
+<div class="floating-images">
+  <img src="images/foto1.jpg" class="float-image" />
+  <img src="images/foto2.jpg" class="float-image" />
+</div>
+
 <audio autoplay loop>
-  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+  <source src="audio/romantica.mp3" type="audio/mpeg">
   Tu navegador no soporta audio HTML5.
 </audio>
 
-<script>
-  const canvas = document.getElementById("universe");
-  const ctx = canvas.getContext("2d");
-  let width = canvas.width = window.innerWidth;
-  let height = canvas.height = window.innerHeight;
-
-  window.addEventListener("resize", () => {
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
-  });
-
-  const stars = Array.from({ length: 300 }, () => ({
-    x: Math.random() * width,
-    y: Math.random() * height,
-    z: Math.random() * width
-  }));
-
-  const shootingStars = [];
-
-  function drawStars() {
-    ctx.clearRect(0, 0, width, height);
-    ctx.fillStyle = "white";
-    for (const star of stars) {
-      let k = 128.0 / star.z;
-      let x = (star.x - width / 2) * k + width / 2;
-      let y = (star.y - height / 2) * k + height / 2;
-      let size = (1 - star.z / width) * 2;
-      ctx.beginPath();
-      ctx.arc(x, y, size, 0, Math.PI * 2);
-      ctx.fill();
-      star.z -= 2;
-      if (star.z <= 0) {
-        star.z = width;
-      }
-    }
-  }
-
-  function drawShootingStars() {
-    for (let i = shootingStars.length - 1; i >= 0; i--) {
-      const star = shootingStars[i];
-      ctx.beginPath();
-      ctx.strokeStyle = "white";
-      ctx.moveTo(star.x, star.y);
-      ctx.lineTo(star.x - star.dx * 10, star.y - star.dy * 10);
-      ctx.stroke();
-
-      star.x += star.dx;
-      star.y += star.dy;
-
-      if (star.x > width || star.y > height) {
-        shootingStars.splice(i, 1);
-      }
-    }
-
-    if (Math.random() < 0.02) {
-      shootingStars.push({
-        x: Math.random() * width,
-        y: 0,
-        dx: 4 + Math.random() * 2,
-        dy: 4 + Math.random() * 2
-      });
-    }
-  }
-
-  function animate() {
-    drawStars();
-    drawShootingStars();
-    requestAnimationFrame(animate);
-  }
-
-  animate();
-
-  const phrases = [
-    "Te extraño 💫",
-    "My love 💖",
-    "Me encantas ✨",
-    "Ojitos de baby perezosa 🦥💕",
-    "Tu amor es mi universo 🌌",
-    "Eres mi estrella fugaz 🌠"
-  ];
-
-  let index = 0;
-  const loveText = document.getElementById("loveText");
-
-  function showPhrase() {
-    loveText.classList.remove("show");
-    setTimeout(() => {
-      loveText.textContent = phrases[index];
-      loveText.classList.add("show");
-      index = (index + 1) % phrases.length;
-    }, 500);
-  }
-
-  setInterval(showPhrase, 5000);
-  showPhrase();
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
