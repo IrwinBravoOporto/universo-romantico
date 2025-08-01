@@ -116,7 +116,7 @@ const imageContainer = document.getElementById("imageContainer");
 
 // Simula carga dinámica (GitHub Pages no permite leer archivos locales,
 // así que las imagenes deben estar listadas manualmente en un array).
-const totalImages = 4; // cambia este número si agregas más imágenes
+const totalImages = 90; // cambia este número si agregas más imágenes
 const imagePaths = [];
 
 
@@ -139,20 +139,26 @@ function createImage(src) {
   // Posición inicial aleatoria
   const startTop = Math.random() * 80;
   const startLeft = Math.random() * 80;
-
   img.style.top = `${startTop}%`;
   img.style.left = `${startLeft}%`;
 
   // Pequeño delay para que aparezcan con ritmo
   img.style.animationDelay = `${Math.random() * 5}s`;
 
+  // Si ocurre un error al cargar la imagen, la eliminamos
+  img.onerror = () => {
+    console.warn(`❌ Imagen no válida: ${src}`);
+    img.remove();
+  };
+
   imageContainer.appendChild(img);
 
-  // Opcional: eliminar imagen tras la animación
+  // Eliminar imagen después de la animación
   setTimeout(() => {
     img.remove();
-  }, 7000); // un poco más que la duración de la animación
+  }, 7000);
 }
+
 
 function launchStarsForever() {
   const delay = Math.random() * 2000 + 1500; // entre 1.5s y 3.5s
