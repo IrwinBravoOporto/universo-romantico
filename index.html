@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Universo Romántico</title>
   <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -14,10 +15,16 @@
 <div id="loveText" class="romantic-text"></div>
 <div id="imageContainer" class="floating-images"></div>
 
-<audio autoplay loop>
+<audio id="bg-music" loop style="display: none">
   <source src="audio/romantica.mp3" type="audio/mpeg">
-  Tu navegador no soporta audio HTML5.
 </audio>
+
+<button onclick="document.getElementById('bg-music').play()" style="position: absolute; top: 20px; left: 20px; z-index: 9999;">
+  🎵 Reproducir Música
+</button>
+
+
+
 
 <script src="script.js"></script>
 </body>

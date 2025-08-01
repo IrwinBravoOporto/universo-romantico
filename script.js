@@ -69,13 +69,35 @@ animate();
 
 // Frases
 const phrases = [
-  "Eres mi universo 💫",
-  "Mi amor por ti no tiene fin 🌌",
-  "Contigo las estrellas brillan más ✨",
-  "Ojitos de baby perezosa 🦥💕",
-  "Tu amor me eleva 💖",
-  "Besos intergalácticos 💋"
+  "Tus ojitos dulces me dan paz... como el mar en calma 🦀🌊",
+  "Desde que te conocí, los días se sienten más suaves, más bonitos ✨",
+  "Tu sonrisa es el mejor lugar para quedarme un rato 💫😊",
+  "Solo llevamos un mes... pero mi corazón ya se siente en casa contigo 🏠💙",
+  "Te extraño incluso cuando acabo de verte 🕰️💕",
+  "Tenerte cerca es como una medicina que no sabía que necesitaba 💊💖",
+  "Somos dos cangrejitos que se encontraron bajo la misma luna 🦀🌙",
+  "Eres ternura pura... y eso me tiene completamente atrapado 💞",
+  "Cuando no estás, hasta el silencio me habla de ti 🌌",
+  "No sé si creo en el destino, pero el universo hizo algo bonito al cruzarnos ✨",
+  "A tu lado, incluso los momentos simples se sienten especiales 🍃🤍",
+  "Quiero más fines de semana contigo, más tardes mirando tus ojitos ☀️🦥",
+  "Solo quiero verte, abrazarte, y que se detenga un rato el mundo 🤗",
+  "Tu forma de cuidar, de mirar, de sonreír... todo me enamora poquito a poco 🩺🌷",
+  "A veces creo que te soñé... y el universo me escuchó 💭🌠"
 ];
+
+const phraseElement = document.querySelector('.phrase');
+
+function rotatePhrases() {
+  let currentIndex = 0;
+
+  setInterval(() => {
+    currentIndex = (currentIndex + 1) % phrases.length;
+    phraseElement.textContent = phrases[currentIndex];
+  }, 10000);
+}
+
+rotatePhrases();
 
 let index = 0;
 const loveText = document.getElementById("loveText");
@@ -97,18 +119,55 @@ const imageContainer = document.getElementById("imageContainer");
 // Simula carga dinámica (GitHub Pages no permite leer archivos locales,
 // así que las imagenes deben estar listadas manualmente en un array).
 const totalImages = 4; // cambia este número si agregas más imágenes
+const imagePaths = [];
+
+
+// Llenar el array con los nombres
 for (let i = 1; i <= totalImages; i++) {
+  imagePaths.push(`images/foto${i}.jpg`);
+}
+
+// Desordenar el array (Fisher-Yates shuffle)
+for (let i = imagePaths.length - 1; i > 0; i--) {
+  const j = Math.floor(Math.random() * (i + 1));
+  [imagePaths[i], imagePaths[j]] = [imagePaths[j], imagePaths[i]];
+}
+
+function createImage(src) {
   const img = document.createElement("img");
-  img.src = `images/foto${i}.jpg`; // asegúrate de seguir ese patrón
+  img.src = src;
   img.className = "floating-img";
-  img.style.top = `${Math.random() * 80}%`;
-  img.style.left = `${Math.random() * 90}%`;
-  img.style.animationDelay = `${Math.random() * 15}s`;
+
+  // Posición inicial aleatoria
+  const startTop = Math.random() * 80;
+  const startLeft = Math.random() * 80;
+
+  img.style.top = `${startTop}%`;
+  img.style.left = `${startLeft}%`;
+
+  // Pequeño delay para que aparezcan con ritmo
+  img.style.animationDelay = `${Math.random() * 5}s`;
+
   imageContainer.appendChild(img);
 
-  // Fade in delay
+  // Opcional: eliminar imagen tras la animación
   setTimeout(() => {
-    img.style.opacity = 1;
-  }, 2000 + Math.random() * 3000);
+    img.remove();
+  }, 7000); // un poco más que la duración de la animación
 }
-``
+
+function launchStarsForever() {
+  const delay = Math.random() * 2000 + 1500; // entre 1.5s y 3.5s
+  const randomImage = imagePaths[Math.floor(Math.random() * imagePaths.length)];
+  createImage(randomImage);
+  setTimeout(launchStarsForever, delay);
+}
+
+launchStarsForever();
+
+
+// Crear imágenes de forma aleatoria sin repetir
+imagePaths.forEach((path) => {
+  createImage(path);
+});
+

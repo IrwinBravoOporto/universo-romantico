@@ -19,19 +19,46 @@ canvas {
 
 .romantic-text {
   position: absolute;
-  top: 50%;
+  top: 45%; /* ligeramente arriba */
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 3em;
+  font-size: clamp(1.2rem, 5vw, 2.2rem);
+  max-width: 90vw;
+  padding: 10px 20px;
+  box-sizing: border-box;
   color: #ff99cc;
-  text-shadow: 0 0 15px #ff99cc, 0 0 30px #ff66cc;
+  text-align: center;
+  text-shadow: 0 0 8px #ff99cc, 0 0 15px #ff66cc; /* más suave */
   opacity: 0;
   z-index: 2;
   transition: opacity 1.5s ease, transform 1.5s ease;
-  white-space: nowrap;
-  text-align: center;
   pointer-events: none;
+  line-height: 1.6;
+  word-wrap: break-word;
+  white-space: normal;
+  background-color: rgba(0, 0, 0, 0.15); /* opcional */
+  border-radius: 10px; /* opcional */
 }
+
+
+.love-text {
+  position: absolute;
+  font-size: 24px;
+  color: #ff69b4; /* rosa romántico */
+  font-family: 'Dancing Script', cursive;
+  text-shadow: 0 0 10px #ffb6c1, 0 0 20px #ffc0cb;
+  animation: floatText 8s ease-in-out infinite;
+}
+
+.image-float {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  animation: floatImage 8s infinite ease-in-out;
+  border-radius: 16px;
+  box-shadow: 0 0 10px #fff;
+}
+
 
 .romantic-text.show {
   opacity: 1;
@@ -71,4 +98,101 @@ canvas {
     transform: translateY(0) scale(1);
     opacity: 0.3;
   }
+}
+
+@keyframes floatText {
+  0% { transform: translateY(0px) scale(1); opacity: 1; }
+  50% { transform: translateY(-50px) scale(1.2); opacity: 0.8; }
+  100% { transform: translateY(0px) scale(1); opacity: 1; }
+}
+
+@keyframes floatImage {
+  0% { transform: scale(1) rotate(0deg); opacity: 1; }
+  50% { transform: scale(1.1) rotate(5deg); opacity: 0.9; }
+  100% { transform: scale(1) rotate(-5deg); opacity: 1; }
+}
+
+@keyframes shootingStar {
+  0% {
+    transform: scale(0.3) translate(0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  70% {
+    transform: scale(1.1) translate(100px, -80px) rotate(15deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.2) translate(200px, -160px) rotate(30deg);
+    opacity: 0;
+  }
+}
+
+.floating-img {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 15px;
+  box-shadow: 0 0 12px rgba(255, 192, 203, 0.6);
+  animation: shootingStar 6s ease-in-out forwards;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: black;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+<script>
+  // Activa la música al primer clic/touch del usuario
+  function enableMusicOnInteraction() {
+    const music = document.getElementById("bg-music");
+    if (music && music.paused) {
+      music.play().catch((e) => {
+        console.log("Error al reproducir la música:", e);
+      });
+    }
+    // Solo se necesita una vez
+    window.removeEventListener("click", enableMusicOnInteraction);
+    window.removeEventListener("touchstart", enableMusicOnInteraction);
+  }
+
+  window.addEventListener("click", enableMusicOnInteraction);
+  window.addEventListener("touchstart", enableMusicOnInteraction);
+</script>
+
+
+.container {
+  max-width: 90%;
+  padding: 20px;
+  text-align: center;
+}
+
+.phrase {
+  font-size: 4vw;                /* Escala con el ancho de pantalla */
+  line-height: 1.6;
+  word-wrap: break-word;
+  white-space: normal;
+  overflow-wrap: break-word;
+  animation: fadeIn 1s ease-in-out;
+}
+
+@media (max-width: 480px) {
+  .phrase {
+    font-size: 6vw;              /* Un poco más grande en móviles */
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
