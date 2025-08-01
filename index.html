@@ -11,21 +11,42 @@
 <body>
 
 <canvas id="universe"></canvas>
-
-<div id="loveText" class="romantic-text"></div>
-<div id="imageContainer" class="floating-images"></div>
-
-<audio id="bg-music" loop style="display: none">
-  <source src="audio/romantica.mp3" type="audio/mpeg">
-</audio>
-
-<button onclick="document.getElementById('bg-music').play()" style="position: absolute; top: 20px; left: 20px; z-index: 9999;">
-  🎵 Reproducir Música
+<!-- Botón corazón para reproducir música -->
+<button id="playButton" class="heart-button" aria-label="Reproducir música romántica">
+  <svg viewBox="0 0 32 29.6" class="heart-shape" xmlns="http://www.w3.org/2000/svg">
+    <path d="M23.6,0c-3.4,0-6.4,2.2-7.6,5.4C14.8,2.2,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4
+      c0,9.6,16,21.2,16,21.2s16-11.6,16-21.2C32,3.8,28.2,0,23.6,0z" />
+  </svg>
+  <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
+    <path d="M8 5v14l11-7z"/>
+  </svg>
 </button>
 
 
 
+<div id="loveText" class="romantic-text"></div>
+<div id="imageContainer" class="floating-images"></div>
+
+<audio id="bg-music" loop>
+  <source src="audio/romantica.mp3" type="audio/mpeg">
+</audio>
 
 <script src="script.js"></script>
 </body>
 </html>
+
+<script>
+  document.getElementById('playButton').addEventListener('click', () => {
+    const music = document.getElementById('bg-music');
+    music.play().then(() => {
+      const btn = document.getElementById('playButton');
+      btn.classList.add('fade-out');
+      setTimeout(() => {
+        btn.style.display = 'none';
+      }, 800); // Espera a que termine la animación
+    }).catch((e) => {
+      alert('Activa el sonido o toca la pantalla para reproducir la música');
+    });
+  });
+</script>
+

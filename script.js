@@ -70,11 +70,9 @@ animate();
 // Frases
 const phrases = [
   "Tus ojitos dulces me dan paz... como el mar en calma 🦀🌊",
-  "Desde que te conocí, los días se sienten más suaves, más bonitos ✨",
   "Tu sonrisa es el mejor lugar para quedarme un rato 💫😊",
-  "Solo llevamos un mes... pero mi corazón ya se siente en casa contigo 🏠💙",
+  "Solo llevamos casi mes... pero mi corazón ya se siente en casa contigo 🏠💙",
   "Te extraño incluso cuando acabo de verte 🕰️💕",
-  "Tenerte cerca es como una medicina que no sabía que necesitaba 💊💖",
   "Somos dos cangrejitos que se encontraron bajo la misma luna 🦀🌙",
   "Eres ternura pura... y eso me tiene completamente atrapado 💞",
   "Cuando no estás, hasta el silencio me habla de ti 🌌",
@@ -171,3 +169,14 @@ imagePaths.forEach((path) => {
   createImage(path);
 });
 
+
+const audio = document.querySelector("audio");
+const playButton = document.getElementById("playButton");
+
+playButton.addEventListener("click", () => {
+  audio.play().then(() => {
+    playButton.style.display = "none"; // Oculta el botón al iniciar
+  }).catch(err => {
+    console.log("Error al reproducir audio:", err);
+  });
+});

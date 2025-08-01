@@ -140,6 +140,169 @@ canvas {
   animation: shootingStar 6s ease-in-out forwards;
 }
 
+.heart-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 90px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  animation: heartbeat 1.5s infinite;
+  padding: 0;
+}
+
+.heart-shape {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease;
+}
+
+.play-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 28px;
+  height: 28px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+@keyframes heartbeat {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.15);
+  }
+}
+
+.heart-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 110px;
+  height: 100px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  animation: heartbeat 1.5s infinite;
+  padding: 0;
+  transition: transform 0.3s ease;
+}
+
+.heart-shape {
+  width: 100%;
+  height: 100%;
+  fill: #e63946; /* rojo vibrante */
+  filter: drop-shadow(0 0 10px rgba(230, 57, 70, 0.6));
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.play-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 28px;
+  height: 28px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.heart-button:hover .heart-shape {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 15px rgba(230, 57, 70, 0.9));
+}
+
+@keyframes heartbeat {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.15);
+  }
+}
+
+
+/* Botón romántico de corazón con animación */
+.romantic-heart {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  height: 90px;
+  background-color: #ff69b4; /* Rosado fuerte */
+  transform: translate(-50%, -50%) rotate(-45deg);
+  border-radius: 50% 50% 0 0;
+  animation: heartbeat 1.5s infinite;
+  cursor: pointer;
+  z-index: 9999;
+  box-shadow: 0 0 20px rgba(255, 105, 180, 0.6);
+}
+
+/* Parte derecha del corazón */
+.romantic-heart::before,
+.romantic-heart::after {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 90px;
+  background-color: #ff69b4;
+  border-radius: 50%;
+}
+
+.romantic-heart::before {
+  top: -50px;
+  left: 0;
+}
+
+.romantic-heart::after {
+  left: 50px;
+  top: 0;
+}
+
+/* Ícono de Play */
+.heart-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 32px;
+  color: white;
+  z-index: 10;
+  user-select: none;
+}
+
+/* Latido */
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1) translate(-50%, -50%) rotate(-45deg); }
+  50% { transform: scale(1.15) translate(-50%, -50%) rotate(-45deg); }
+}
+
+/* Efecto de desvanecimiento */
+.fade-out {
+  animation: fadeOut 0.8s ease forwards;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: scale(0.5) translate(-50%, -50%) rotate(-45deg);
+  }
+}
+
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1) translate(-50%, -50%); }
+  50% { transform: scale(1.2) translate(-50%, -50%); }
+}
+
+
 body {
   margin: 0;
   padding: 0;
@@ -196,3 +359,4 @@ body {
   from { opacity: 0; transform: scale(0.95); }
   to { opacity: 1; transform: scale(1); }
 }
+
