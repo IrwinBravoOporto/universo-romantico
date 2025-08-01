@@ -1,4 +1,3 @@
-
 const canvas = document.getElementById("universe");
 const ctx = canvas.getContext("2d");
 let width = canvas.width = window.innerWidth;
@@ -9,6 +8,7 @@ window.addEventListener("resize", () => {
   height = canvas.height = window.innerHeight;
 });
 
+// Estrellas y fugaces
 const stars = Array.from({ length: 300 }, () => ({
   x: Math.random() * width,
   y: Math.random() * height,
@@ -29,9 +29,7 @@ function drawStars() {
     ctx.arc(x, y, size, 0, Math.PI * 2);
     ctx.fill();
     star.z -= 2;
-    if (star.z <= 0) {
-      star.z = width;
-    }
+    if (star.z <= 0) star.z = width;
   }
 }
 
@@ -52,7 +50,7 @@ function drawShootingStars() {
     }
   }
 
-  if (Math.random() < 0.02) {
+  if (Math.random() < 0.015) {
     shootingStars.push({
       x: Math.random() * width,
       y: 0,
@@ -67,16 +65,16 @@ function animate() {
   drawShootingStars();
   requestAnimationFrame(animate);
 }
-
 animate();
 
+// Frases
 const phrases = [
-  "Te extraño 💫",
-  "My love 💖",
-  "Me encantas ✨",
+  "Eres mi universo 💫",
+  "Mi amor por ti no tiene fin 🌌",
+  "Contigo las estrellas brillan más ✨",
   "Ojitos de baby perezosa 🦥💕",
-  "Tu amor es mi universo 🌌",
-  "Eres mi estrella fugaz 🌠"
+  "Tu amor me eleva 💖",
+  "Besos intergalácticos 💋"
 ];
 
 let index = 0;
@@ -90,6 +88,27 @@ function showPhrase() {
     index = (index + 1) % phrases.length;
   }, 500);
 }
-
-setInterval(showPhrase, 5000);
+setInterval(showPhrase, 6000);
 showPhrase();
+
+// Imágenes automáticas desde carpeta
+const imageContainer = document.getElementById("imageContainer");
+
+// Simula carga dinámica (GitHub Pages no permite leer archivos locales,
+// así que las imagenes deben estar listadas manualmente en un array).
+const totalImages = 6; // cambia este número si agregas más imágenes
+for (let i = 1; i <= totalImages; i++) {
+  const img = document.createElement("img");
+  img.src = `images/foto${i}.jpg`; // asegúrate de seguir ese patrón
+  img.className = "floating-img";
+  img.style.top = `${Math.random() * 80}%`;
+  img.style.left = `${Math.random() * 90}%`;
+  img.style.animationDelay = `${Math.random() * 15}s`;
+  imageContainer.appendChild(img);
+
+  // Fade in delay
+  setTimeout(() => {
+    img.style.opacity = 1;
+  }, 2000 + Math.random() * 3000);
+}
+``

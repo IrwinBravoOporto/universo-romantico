@@ -4,33 +4,36 @@ html, body {
   padding: 0;
   overflow: hidden;
   background: black;
-  color: white;
-  font-family: 'Courier New', Courier, monospace;
   height: 100vh;
+  font-family: 'Dancing Script', cursive;
 }
 
 canvas {
   position: fixed;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 1;
+  z-index: 0;
 }
 
-#loveText {
+.romantic-text {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(1);
-  font-size: 2.5em;
-  text-align: center;
+  transform: translate(-50%, -50%);
+  font-size: 3em;
+  color: #ff99cc;
+  text-shadow: 0 0 15px #ff99cc, 0 0 30px #ff66cc;
   opacity: 0;
-  transition: opacity 2s, transform 2s;
   z-index: 2;
+  transition: opacity 1.5s ease, transform 1.5s ease;
   white-space: nowrap;
+  text-align: center;
+  pointer-events: none;
 }
 
-#loveText.show {
+.romantic-text.show {
   opacity: 1;
   transform: translate(-50%, -50%) scale(1.2);
 }
@@ -41,31 +44,31 @@ canvas {
   left: 0;
   width: 100%;
   height: 100%;
+  z-index: 1;
   pointer-events: none;
-  z-index: 2;
 }
 
-.float-image {
+.floating-img {
   position: absolute;
   width: 150px;
-  opacity: 0.7;
-  animation: float 20s infinite ease-in-out;
+  border-radius: 12px;
+  opacity: 0;
+  animation: floatUp 25s infinite ease-in-out;
+  transition: opacity 3s ease-in-out;
+  box-shadow: 0 0 20px rgba(255, 182, 193, 0.5);
 }
 
-.float-image:nth-child(1) {
-  top: 10%;
-  left: 10%;
-  animation-delay: 0s;
-}
-
-.float-image:nth-child(2) {
-  top: 60%;
-  left: 70%;
-  animation-delay: 5s;
-}
-
-@keyframes float {
-  0% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-30px) rotate(5deg); }
-  100% { transform: translateY(0) rotate(0deg); }
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(-50px) scale(1.05) rotate(2deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.3;
+  }
 }
