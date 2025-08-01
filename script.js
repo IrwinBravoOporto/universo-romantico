@@ -131,32 +131,30 @@ for (let i = imagePaths.length - 1; i > 0; i--) {
   [imagePaths[i], imagePaths[j]] = [imagePaths[j], imagePaths[i]];
 }
 
+const MAX_IMAGES = 25;
 function createImage(src) {
   const img = document.createElement("img");
   img.src = src;
   img.className = "floating-img";
 
-  // Posición inicial aleatoria
+  // Animación y posición
   const startTop = Math.random() * 80;
   const startLeft = Math.random() * 80;
   img.style.top = `${startTop}%`;
   img.style.left = `${startLeft}%`;
-
-  // Pequeño delay para que aparezcan con ritmo
   img.style.animationDelay = `${Math.random() * 5}s`;
 
-  // Si ocurre un error al cargar la imagen, la eliminamos
-  img.onerror = () => {
-    console.warn(`❌ Imagen no válida: ${src}`);
-    img.remove();
-  };
+  // Controlar número máximo en pantalla
+  if (imageContainer.children.length >= MAX_IMAGES) {
+    imageContainer.removeChild(imageContainer.firstChild);
+  }
 
+  // Error al cargar
+  img.onerror = () => img.remove();
   imageContainer.appendChild(img);
 
-  // Eliminar imagen después de la animación
-  setTimeout(() => {
-    img.remove();
-  }, 7000);
+  // Eliminar después de 7s
+  setTimeout(() => img.remove(), 7000);
 }
 
 
@@ -186,3 +184,13 @@ playButton.addEventListener("click", () => {
     console.log("Error al reproducir audio:", err);
   });
 });
+
+let currentIndex = 0;
+function launchImagesGradually() {
+  if (currentIndex < imagePaths.length) {
+    createImage(imagePaths[currentIndex]);
+    currentIndex++;
+    setTimeout(launchImagesGradually, 200); // Cada 200ms
+  }
+}
+launchImagesGradually();
